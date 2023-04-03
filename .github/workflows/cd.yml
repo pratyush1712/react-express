@@ -1,4 +1,4 @@
-name: Deploying to Staging
+name: Continuous Deployment to Staging
 
 on:
   push:
