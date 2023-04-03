@@ -5,7 +5,8 @@ import background from "./assets/background.jpg";
 import { Button, Container, Link, Typography } from "@mui/material";
 import { ThemeOptions, ThemeProvider, createTheme } from "@mui/material/styles";
 
-const CLIENT_ID = process.env.REACT_APP_CLIENT_ID;
+const CLIENT_ID =
+  process.env.REACT_APP_CLIENT_ID || "3e57a43a806346728814e707b070dd29";
 const REDIRECT_URI = "http://localhost:8000/";
 const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize";
 const RESPONSE_TYPE = "token";
