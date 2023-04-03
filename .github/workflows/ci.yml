@@ -29,6 +29,7 @@ jobs:
             ${{ runner.os }}-yarn-
 
       - name: Install dependencies
+        if: matrix.steps == 'build-client' || matrix.steps == 'build-server'
         run: yarn install --frozen-lockfile
 
       - name: Check Linter
