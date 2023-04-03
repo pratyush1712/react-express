@@ -24,5 +24,5 @@ jobs:
         env:
           OKTETO_TOKEN: ${{ secrets.OKTETO_TOKEN }}
         run: |
-          okteto namespace devops
+          okteto namespace pratyush1712
           okteto up -d

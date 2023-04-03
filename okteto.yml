@@ -1,0 +1,41 @@
+name: react-express
+
+# The build section defines how to build the images of your development environment
+# More info: https://www.okteto.com/docs/reference/manifest/#build
+build:
+
+  # You can use the following env vars to refer to this image in your deploy commands:
+  #  - OKTETO_BUILD_APP_REGISTRY: image registry
+  #  - OKTETO_BUILD_APP_REPOSITORY: image repo
+  #  - OKTETO_BUILD_APP_IMAGE: image name
+  #  - OKTETO_BUILD_APP_TAG: image tag
+  app:
+    context: .
+    dockerfile: Dockerfile
+    image: ps1242/devops:latest
+
+# The deploy section defines how to deploy your development environment
+# More info: https://www.okteto.com/docs/reference/manifest/#deploy
+deploy:
+  compose:
+    file: docker-compose.yml
+
+# The dependencies section defines other git repositories to be deployed as part of your development environment
+# More info: https://www.okteto.com/docs/reference/manifest/#dependencies
+# dependencies:
+#   - https://github.com/okteto/sample
+
+
+# The dev section defines how to activate a development container
+# More info: https://www.okteto.com/docs/reference/manifest/#dev
+dev:
+  app:
+    image: ps1242/devops:latest
+    command: bash
+    workdir: /app/server
+    sync:
+      - .:/app/server
+    forward:
+      - 9229:9229
+      - 8001:8001
+
