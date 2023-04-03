@@ -5,9 +5,9 @@ FROM node:16-alpine
 WORKDIR /app
 
 # Copy package.jsons first to install
-COPY package.json package-lock.json /app/
-COPY client/package.json client/package-lock.json /app/frontend/
-COPY server/package.json server/package-lock.json /app/server/
+COPY package.json /app/
+COPY client/package.json client/yarn.lock /app/frontend/
+COPY server/package.json server/yarn.lock /app/server/
 RUN yarn install
 
 # Copy the frontend and server directories to the app directory
