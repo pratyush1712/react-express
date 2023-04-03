@@ -1,13 +1,25 @@
 import express from 'express';
 import path from 'path';
 import cors from 'cors';
-import 'express-async-errors';
+import dotenv from 'dotenv';
 
-import './database/connection';
-const port = process.env.PORT || 3000;
+dotenv.config({ path: path.join(__dirname, '../.env') });
+
+const port = process.env.PORT || 8001;
 
 const app = express();
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+
+const buildPath = path.join(__dirname, '..', '..', 'client', 'build');
+app.use(express.static(buildPath));
+
+app.get('/', (req, res) => {
+    res.sendFile(path.join(buildPath, 'index.html'));
+});
+
+app.listen(port, () => {
+    console.log(`Server running on port ${port}`);
+});
 
