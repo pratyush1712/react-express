@@ -1,0 +1,9 @@
+version: "3"
+
+services:
+  carriage:
+    build: .
+    ports:
+      - "8001:8001"
+    image: ps1242/devOps:latest
+    restart: always
