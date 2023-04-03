@@ -25,4 +25,4 @@ jobs:
           OKTETO_TOKEN: ${{ secrets.OKTETO_TOKEN }}
         run: |
           okteto namespace pratyush1712
-          okteto up -d
+          sh -c "okteto up"
