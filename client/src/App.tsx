@@ -11,7 +11,7 @@ export default function App() {
 
   return (
     <Container>
-      <h1>Clicks: {clicks}</h1>
+      <h1>Random Clicks: {clicks}</h1>
       <button onClick={onClick}>Click me</button>
     </Container>
   );
