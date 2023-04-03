@@ -10,6 +10,11 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
+    strategy:
+      matrix:
+        node-version: [14.x, 16.x]
+        steps: ["lint", "build-client", "build-server"]
+
     steps:
       - name: Checkout Code
         uses: actions/checkout@v2
@@ -28,13 +33,16 @@ jobs:
         run: yarn install --frozen-lockfile
 
       - name: Check Linter
+        if: matrix.steps == 'lint'
         run: yarn run lint
 
       - name: Build client
+        if: matrix.steps == 'build-client'
         working-directory: client
         run: yarn run build
 
       - name: Build Server
+        if: matrix.steps == 'build-server'
         working-directory: server
         run: yarn run build
 

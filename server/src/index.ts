@@ -9,7 +9,6 @@ dotenv.config({ path: path.join(__dirname, "../.env") });
 
 const port = process.env.PORT || 8001;
 
-
 const app = express();
 app.use(cors());
 app.use(express.json());
@@ -20,9 +19,9 @@ const buildPath = path.join(__dirname, "..", "..", "client", "build");
 app.use(express.static(buildPath));
 
 app.get("/", (req, res) => {
-    res.sendFile(path.join(buildPath, "index.html"));
+  res.sendFile(path.join(buildPath, "index.html"));
 });
 
 app.listen(port, () => {
-    console.log(`Server running on port ${port}`);
+  console.log(`Server running on port ${port}`);
 });
