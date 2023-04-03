@@ -11,6 +11,11 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
+      - name: Set up Okteto CLI
+        uses: okteto/setup-okteto@v1
+        with:
+          version: latest
+
       - name: Deploy to staging
         env:
           OKTETO_TOKEN: ${{ secrets.OKTETO_TOKEN }}
