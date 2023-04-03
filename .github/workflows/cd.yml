@@ -11,14 +11,18 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Set up Okteto CLI
-        uses: okteto/setup-okteto@v1
+      - name: context
+        uses: okteto/context@latest
         with:
-          version: latest
+          token: ${{ secrets.OKTETO_TOKEN }}
 
-      - name: Deploy to staging
-        env:
-          OKTETO_TOKEN: ${{ secrets.OKTETO_TOKEN }}
-        run: |
-          okteto namespace pratyush1712
-          sh -c "okteto up"
+      - name: "Activate Namespace"
+        uses: okteto/namespace@latest
+        with:
+          name: devops
+
+      - name: "Trigger the pipeline"
+        uses: okteto/pipeline@latest
+        with:
+          name: pr-${{ github.event.number }}
+          timeout: 8m
