@@ -1,0 +1,53 @@
+name: Continuous Integration
+
+on:
+  pull_request:
+    branches: ["master"]
+  push:
+    branches: ["master"]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+
+      - name: Cache Dependencies
+        uses: actions/cache@v2
+        with:
+          path: |
+            client/
+            server/
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Check Linter
+        run: yarn run lint
+
+      - name: Build client
+        working-directory: client
+        run: yarn run build
+
+      - name: Build Server
+        working-directory: server
+        run: yarn run build
+
+      - name: Build Docker Image
+        run: docker build -t myapp .
+
+      - name: Check for containerizability
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          file: ./Dockerfile
+          push: false
+          labels: |
+            com.github.actions.description="Check for containerizability"
+            com.github.actions.icon="check-circle"
+            com.github.actions.color="green"
