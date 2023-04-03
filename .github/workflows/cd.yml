@@ -19,7 +19,7 @@ jobs:
       - name: "Activate Namespace"
         uses: okteto/namespace@latest
         with:
-          name: devops
+          namespace: devops
 
       - name: "Trigger the pipeline"
         uses: okteto/pipeline@latest
