@@ -1,4 +1,5 @@
 module.exports = {
+  ignorePatterns: ["docker-compose.yml"],
   extends: [
     "plugin:@typescript-eslint/recommended",
     "plugin:prettier/recommended",
