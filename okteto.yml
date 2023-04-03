@@ -3,7 +3,6 @@ name: react-express
 # The build section defines how to build the images of your development environment
 # More info: https://www.okteto.com/docs/reference/manifest/#build
 build:
-
   # You can use the following env vars to refer to this image in your deploy commands:
   #  - OKTETO_BUILD_REACT-EXPRESS_REGISTRY: image registry
   #  - OKTETO_BUILD_REACT-EXPRESS_REPOSITORY: image repo
@@ -15,23 +14,22 @@ build:
 
 # The deploy section defines how to deploy your development environment
 # More info: https://www.okteto.com/docs/reference/manifest/#deploy
-# deploy:
-#   commands:
-#   - name: Deploy
-#     command: echo 'Replace this line with the proper 'helm' or 'kubectl' commands to deploy your development environment'
-
+deploy:
+  commands:
+    - name: Deploy
+      command: |
+        kubectl apply -f k8s/deployment.yaml
 
 # The dependencies section defines other git repositories to be deployed as part of your development environment
 # More info: https://www.okteto.com/docs/reference/manifest/#dependencies
 # dependencies:
 #   - https://github.com/okteto/sample
 
-
 # The dev section defines how to activate a development container
 # More info: https://www.okteto.com/docs/reference/manifest/#dev
 dev:
   react-express:
-    image: okteto/node:14
+    image: okteto/node:16
     command: bash
     sync:
       - .:/usr/src/app
@@ -39,4 +37,3 @@ dev:
       - 9229:9229
       - 3000:3000
     autocreate: true
-
