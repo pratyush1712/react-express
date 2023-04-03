@@ -12,7 +12,7 @@ jobs:
 
     strategy:
       matrix:
-        steps: ["lint", "build-client", "build-server"]
+        steps: ["lint", "build-client", "build-server", "docker-build"]
 
     steps:
       - name: Checkout Code
@@ -46,9 +46,11 @@ jobs:
         run: yarn run build
 
       - name: Build Docker Image
+        if: matrix.steps == 'docker-build'
         run: docker build -t myapp .
 
       - name: Check for containerizability
+        if: matrix.steps == 'docker-build'
         uses: docker/build-push-action@v2
         with:
           context: .
