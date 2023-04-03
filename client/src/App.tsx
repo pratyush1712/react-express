@@ -13,6 +13,8 @@ export default function App() {
     <Container>
       <h1>Random Clicks: {clicks}</h1>
       <button onClick={onClick}>Click me</button>
+      <button onClick={() => setClicks(0)}>Reset</button>
+      <button onClick={() => setClicks(clicks + 1)}>Increment</button>
     </Container>
   );
 }
