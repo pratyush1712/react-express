@@ -1,0 +1,47 @@
+name: react-express
+
+# The build section defines how to build the images of your development environment
+# More info: https://www.okteto.com/docs/reference/manifest/#build
+build:
+  # You can use the following env vars to refer to this image in your deploy commands:
+  #  - OKTETO_BUILD_REACT-EXPRESS_REGISTRY: image registry
+  #  - OKTETO_BUILD_REACT-EXPRESS_REPOSITORY: image repo
+  #  - OKTETO_BUILD_REACT-EXPRESS_IMAGE: image name
+  #  - OKTETO_BUILD_REACT-EXPRESS_TAG: image tag
+  react-express:
+    context: .
+    dockerfile: Dockerfile
+
+# The deploy section defines how to deploy your development environment
+# More info: https://www.okteto.com/docs/reference/manifest/#deploy
+# Define the steps to build and test your application
+deploy:
+  runs-on: ubuntu-latest
+  steps:
+    - uses: actions/checkout@v2 # checkout your code
+    - name: Login to Okta
+      run: okteto login
+      env:
+        OKTETO_TOKEN: ${{ secrets.OKTETO_TOKEN }} # set the Okta token as a secret
+    - name: Deploy to Okta
+      run: docker-compose -f docker-compose.yml up -d
+      env:
+        OKTETO_NAMESPACE: your-namespace # set the namespace where you want to deploy your services
+
+# The dependencies section defines other git repositories to be deployed as part of your development environment
+# More info: https://www.okteto.com/docs/reference/manifest/#dependencies
+# dependencies:
+#   - https://github.com/okteto/sample
+
+# The dev section defines how to activate a development container
+# More info: https://www.okteto.com/docs/reference/manifest/#dev
+dev:
+  react-express:
+    image: okteto/node:14
+    command: bash
+    sync:
+      - .:/usr/src/app
+    forward:
+      - 9229:9229
+      - 3000:3000
+    autocreate: true

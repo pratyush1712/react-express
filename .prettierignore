@@ -1,9 +1,4 @@
-build/**.js
-build/**.css
-build/**.html
-build/**.json
+build/
 public/**.html
 public/**.json
-public/**.js
-public/**.css
 node_modules
