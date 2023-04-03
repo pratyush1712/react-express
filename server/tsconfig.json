@@ -1,11 +1,16 @@
 {
-  "extends": "../tsconfig.base.json",
-  "compilerOptions": {
-    "target": "es6",
-    "outDir": "build",
-    "allowJs": true,
-    "module": "commonjs"
-  },
-  "include": ["src", "tests"],
-  "exclude": ["node_modules"]
+    "extends": "../tsconfig.base.json",
+    "compilerOptions": {
+        "target": "es6",
+        "outDir": "build",
+        "allowJs": true,
+        "module": "commonjs"
+    },
+    "include": [
+        "src",
+        "tests"
+    ],
+    "exclude": [
+        "node_modules"
+    ]
 }
