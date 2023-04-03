@@ -12,6 +12,7 @@
     "build:server": "cd server && yarn build",
     "build:client": "cd client && yarn build",
     "dev:server": "cd server && yarn dev",
+    "dev:client": "cd client && yarn start",
     "lint": "yarn eslint . && yarn prettier --check \"**/*.{ts,tsx,js,jsx,json,css,md}\"",
     "format": "yarn prettier --write \"**/*.{js,jsx,json,css,md,ts,tsx}\"",
     "prettier": "prettier"
@@ -19,6 +20,7 @@
   "dependencies": {
     "@typescript-eslint/eslint-plugin": "^5.57.0",
     "@typescript-eslint/parser": "^5.57.0",
+    "concurrently": "^8.0.1",
     "eslint": "^8.37.0",
     "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-jest": "^27.2.1",
