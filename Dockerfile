@@ -6,16 +6,16 @@ WORKDIR /app
 
 # Copy package.jsons first to install
 COPY package.json /app/
-COPY client/package.json client/yarn.lock /app/frontend/
+COPY client/package.json client/yarn.lock /app/client/
 COPY server/package.json server/yarn.lock /app/server/
 RUN yarn install
 
-# Copy the frontend and server directories to the app directory
+# Copy the client and server directories to the app directory
 COPY client /app/client
 COPY server /app/server
 COPY . .
 
-# Install dependencies for the frontend and build the app
+# Install dependencies for the client and build the app
 WORKDIR /app/client
 RUN yarn run build
 
