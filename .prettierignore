@@ -1,3 +1,9 @@
-build/
+build/**.js
+build/**.css
+build/**.html
+build/**.json
 public/**.html
 public/**.json
+public/**.js
+public/**.css
+node_modules

@@ -1,9 +1,9 @@
-import express from 'express';
-import path from 'path';
-import cors from 'cors';
-import dotenv from 'dotenv';
+import express from "express";
+import path from "path";
+import cors from "cors";
+import dotenv from "dotenv";
 
-dotenv.config({ path: path.join(__dirname, '../.env') });
+dotenv.config({ path: path.join(__dirname, "../.env") });
 
 const port = process.env.PORT || 8001;
 
@@ -12,14 +12,13 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-const buildPath = path.join(__dirname, '..', '..', 'client', 'build');
+const buildPath = path.join(__dirname, "..", "..", "client", "build");
 app.use(express.static(buildPath));
 
-app.get('/', (req, res) => {
-    res.sendFile(path.join(buildPath, 'index.html'));
+app.get("/", (req, res) => {
+  res.sendFile(path.join(buildPath, "index.html"));
 });
 
 app.listen(port, () => {
-    console.log(`Server running on port ${port}`);
+  console.log(`Server running on port ${port}`);
 });
-
