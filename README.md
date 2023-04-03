@@ -6,6 +6,7 @@ improving DevOps skills. The app follows a basic React-Express architecture and 
 ## Prerequisites
 
 Before you begin building and running the app, make sure you have the following installed:
+
 - Node
 - Yarn package manager
 - Okteto CLI
@@ -15,18 +16,25 @@ Before you begin building and running the app, make sure you have the following 
 To install and run the app, follow these steps:
 
 - Clone this repository to your local machine.
+
 ```
 git clone https://github.com/pratyush1712/react-express.git
 ```
+
 - Navigate to the root directory of the project in your terminal.
+
 ```
 cd react-express
 ```
+
 - Install the dependencies for the client and server directories.
+
 ```
 yarn run install
 ```
+
 - Start the development server.
+
 ```
 yarn run dev
 ```
@@ -38,6 +46,7 @@ Once the app is running, you can access it by navigating to `http://localhost:80
 To ensure code readability, I have used `eslint` and `prettier`. The app also uses `yarn` as its package manager.
 
 I have implemented DevOps pipelines to automate the build and deployment process. The pipelines include the following steps:
+
 - Linting the code to ensure it meets the coding standards
 - Building the client and server directories
 - Containerizing the app using Docker
