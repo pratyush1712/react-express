@@ -11,13 +11,15 @@
     "postinstall": "yarn install:client && yarn install:server",
     "start:server": "cd server && yarn start",
     "start:client": "cd client && yarn start",
-    "start": "concurrently \"yarn start:server\" \"yarn start:client\"",
+    "start:engine": "cd analytics-engine && python src/app.py",
+    "start": "concurrently \"yarn start:server\" \"yarn start:client\" \"yarn start:engine\"",
     "build:server": "cd server && yarn build",
     "build:client": "cd client && yarn build",
     "dev:server": "cd server && yarn dev",
     "dev:client": "cd client && yarn start",
-    "dev": "concurrently \"yarn dev:server\" \"yarn dev:client\"",
-    "lint": "yarn eslint . && yarn prettier --check \"**/*.{ts,tsx,js,jsx,json,css, md}\"",
+    "dev:engine": "cd analytics-engine && python src/app.py",
+    "dev": "concurrently \"yarn dev:server\" \"yarn dev:client\" \"yarn dev:engine\"",
+    "lint": "yarn eslint . && yarn prettier --check \"**/*.{ts,tsx,js,jsx,json,css,md}\"",
     "format": "yarn prettier --write \"**/*.{js,jsx,json,css,md,ts,tsx}\"",
     "prettier": "prettier"
   },
@@ -32,7 +34,7 @@
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-promise": "^6.1.1",
     "eslint-plugin-react": "^7.32.2",
-    "prettier": "^2.8.7",
+    "prettier": "2.8.7",
     "typescript": "^5.0.3"
   }
 }
