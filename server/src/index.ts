@@ -3,7 +3,7 @@ import path from "path";
 import cors from "cors";
 import dotenv from "dotenv";
 
-import random from "./routes/random";
+import user from "./routes/user";
 
 dotenv.config({ path: path.join(__dirname, "../.env") });
 
@@ -13,7 +13,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use("/api/random", random);
+app.use("/api/user", user);
 
 const buildPath = path.join(__dirname, "..", "..", "client", "build");
 app.use(express.static(buildPath));
