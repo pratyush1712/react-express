@@ -7,7 +7,7 @@ import { ThemeOptions, ThemeProvider, createTheme } from "@mui/material/styles";
 
 const CLIENT_ID =
   process.env.REACT_APP_CLIENT_ID || "3e57a43a806346728814e707b070dd29";
-const REDIRECT_URI = "http://localhost:8000/";
+const REDIRECT_URI = process.env.REACT_APP_PUBLIC_URL;
 const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize";
 const RESPONSE_TYPE = "token";
 const BASE_URL = `${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}`;
