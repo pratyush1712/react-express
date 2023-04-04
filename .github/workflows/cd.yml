@@ -15,6 +15,10 @@ jobs:
         uses: okteto/context@latest
         with:
           token: ${{ secrets.OKTETO_TOKEN }}
+        env:
+          REACT_APP_PUBLIC_URL: ${{ secrets.STAGING_URL }}
+          REACT_APP_CLIENT_ID: ${{ secrets.REACT_APP_CLIENT_ID }}
+
 
       - name: "Activate Namespace"
         uses: okteto/namespace@latest
