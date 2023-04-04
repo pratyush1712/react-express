@@ -30,6 +30,4 @@ jobs:
         with:
           name: react-express
           timeout: 30m
-        env:
-          REACT_APP_PUBLIC_URL: ${{ secrets.STAGING_URL }}
-          REACT_APP_CLIENT_ID: ${{ secrets.REACT_APP_CLIENT_ID }}
+          variables: "REACT_APP_PUBLIC_URL=${{ secrets.STAGING_URL }},REACT_APP_CLIENT_ID=${{ secrets.REACT_APP_CLIENT_ID }}"
