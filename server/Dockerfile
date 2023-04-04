@@ -4,7 +4,8 @@ FROM node:16-alpine
 WORKDIR /app
 
 # Copy package.json
-COPY package.json /app/
+COPY package.json yarn.lock /app/
+COPY ../tsconfig.base.json /app/
 
 # Install dependencies
 RUN yarn install

@@ -4,7 +4,7 @@ FROM node:16-alpine
 WORKDIR /app
 
 # Copy package.json
-COPY package.json /app/
+COPY package.json yarn.lock /app/
 
 # Install dependencies
 ARG REACT_APP_CLIENT_ID
