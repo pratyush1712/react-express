@@ -8,8 +8,8 @@ const router = express.Router();
  * @access Public
  */
 router.get("/", (req, res) => {
-    const user = req.body.user;
-    res.send(user);
+  const user = req.body.user;
+  res.send(user);
 });
 
 /**
@@ -18,8 +18,8 @@ router.get("/", (req, res) => {
  * @access Public
  */
 router.post("/tracks", (req, res) => {
-    const tracks = req.body.tracks;
-    res.send(tracks);
+  const tracks = req.body.tracks;
+  res.send(tracks);
 });
 
 export default router;
