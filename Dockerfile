@@ -4,6 +4,14 @@ FROM node:16-alpine
 # Create a directory for the app
 WORKDIR /app
 
+ENV NODE_ENV=production
+
+# Read build-time environment variables
+ARG REACT_APP_CLIENT_ID
+ENV REACT_APP_CLIENT_ID ${REACT_APP_CLIENT_ID}
+ARG REACT_APP_PUBLIC_URL
+ENV REACT_APP_PUBLIC_URL ${REACT_APP_PUBLIC_URL}
+
 # Copy package.jsons first to install
 COPY package.json /app/
 COPY client/package.json client/yarn.lock /app/client/
