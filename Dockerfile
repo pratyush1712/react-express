@@ -16,19 +16,17 @@ ENV REACT_APP_PUBLIC_URL ${REACT_APP_PUBLIC_URL}
 COPY package.json /app/
 COPY client/package.json client/yarn.lock /app/client/
 COPY server/package.json server/yarn.lock /app/server/
-RUN yarn install
-
-# Copy the client and server directories to the app directory
-COPY client /app/client
-COPY server /app/server
-COPY . .
 
 # Install dependencies for the client and build the app
 WORKDIR /app/client
+RUN yarn install --production
+COPY client /app/client
 RUN yarn run build
 
-# Install dependencies for the server
+# Install dependencies for the client and build the app
 WORKDIR /app/server
+RUN yarn install --production
+COPY server /app/server
 RUN yarn run build
 
 # Expose port 3001 for the server
