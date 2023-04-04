@@ -7,9 +7,6 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    env:
-      REACT_APP_PUBLIC_URL: ${{ secrets.STAGING_URL }}
-      REACT_APP_CLIENT_ID: ${{ secrets.REACT_APP_CLIENT_ID }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -29,3 +26,6 @@ jobs:
         with:
           name: react-express
           timeout: 30m
+          args: |
+            --set REACT_APP_PUBLIC_URL=${{ secrets.STAGING_URL }}
+            --set REACT_APP_CLIENT_ID=${{ secrets.REACT_APP_CLIENT_ID }}
