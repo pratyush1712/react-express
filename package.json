@@ -8,6 +8,7 @@
   "scripts": {
     "install:client": "cd client && yarn install",
     "install:server": "cd server && yarn install",
+    "install:engine": "cd analytics-engine && pip install -r requirements.txt",
     "postinstall": "yarn install:client && yarn install:server",
     "start:server": "cd server && yarn start",
     "start:client": "cd client && yarn start",
