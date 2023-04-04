@@ -3,14 +3,16 @@ FROM node:16-alpine
 # Create a directory for the app
 WORKDIR /app
 
-# Copy package.json
-COPY package.json yarn.lock /app/
+# Copy the tsconfig.base.json file
 COPY ../tsconfig.base.json /app/
+
+# Copy package.json
+COPY package.json /app/
 
 # Install dependencies
 RUN yarn install
 
-# Copy the directory to the app directory
+# Copy the rest of the files to the app directory
 COPY . .
 
 # Build the server app
