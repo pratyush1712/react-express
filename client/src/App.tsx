@@ -2,7 +2,14 @@ import React from "react";
 import { makeStyles } from "@mui/styles";
 import { FaSpotify } from "react-icons/fa";
 import background from "./assets/background.jpg";
-import { Button, Container, Link, Typography } from "@mui/material";
+import {
+  Button,
+  Container,
+  Link,
+  List,
+  ListItem,
+  Typography,
+} from "@mui/material";
 import { ThemeOptions, ThemeProvider, createTheme } from "@mui/material/styles";
 
 const CLIENT_ID =
@@ -10,7 +17,10 @@ const CLIENT_ID =
 const REDIRECT_URI = process.env.REACT_APP_PUBLIC_URL;
 const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize";
 const RESPONSE_TYPE = "token";
-const BASE_URL = `${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}`;
+const SCOPES = ["user-read-currently-playing", "user-top-read"];
+const BASE_URL = `${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}&scope=${SCOPES.join(
+  "+",
+)}`;
 
 const darkTheme = createTheme({
   palette: {
@@ -64,17 +74,20 @@ const useStyles = makeStyles(theme => ({
       boxShadow: "0 0 0 0.2rem rgba(200,200,200,.8)",
     },
   },
+  subTitle: {
+    color: "#fff",
+    fontWeight: "bold",
+    textShadow: "2px 2px 4px #000000",
+    position: "absolute",
+    left: "27%",
+    textTransform: "uppercase",
+  },
 }));
 
 export default function App() {
   const classes = useStyles(darkTheme);
-  const [clicks, setClicks] = React.useState<number>(0);
   const [token, setToken] = React.useState<string | null>(null);
-  const onClick = () => {
-    fetch("/api/random")
-      .then(response => response.json())
-      .then(data => setClicks(data));
-  };
+  const [tracks, setTracks] = React.useState<any[]>([]);
 
   React.useEffect(() => {
     const hash = window.location.hash;
@@ -84,6 +97,23 @@ export default function App() {
       window.location.hash = "";
       window.localStorage.setItem("token", token);
     }
+    (async () => {
+      fetch("https://api.spotify.com/v1/me/top/tracks", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+        .then(response => response.json())
+        .then(async data => {
+          await fetch("/api/user/tracks", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ tracks: data.items }),
+          })
+            .then(response => response.json())
+            .then(data => setTracks(data));
+        });
+    })();
     setToken(token);
   }, []);
 
@@ -96,6 +126,7 @@ export default function App() {
     fontSize: "20px",
     color: "#fff",
     fontWeight: "bold",
+    marginBottom: "10px",
     textShadow: "2px 2px 4px #000000",
     textDecoration: "none",
     boxShadow: "0 0 0 0.2rem rgba(220,220,220)",
@@ -103,9 +134,15 @@ export default function App() {
       textDecoration: "none",
     },
   };
+  console.log(tracks);
 
   return (
     <Container className={classes.root}>
+      {token && (
+        <Button onClick={signOut} variant="text" sx={buttonStyle}>
+          Sign out
+        </Button>
+      )}
       <Typography variant="h2" className={classes.title} gutterBottom>
         Harmonious Sounds
         <Typography className={classes.caption} gutterBottom>
@@ -114,9 +151,62 @@ export default function App() {
       </Typography>
       <Container className={classes.login}>
         {token ? (
-          <Button onClick={signOut} sx={buttonStyle}>
-            Sign Out
-          </Button>
+          <Container>
+            <Typography
+              variant="h5"
+              sx={{ marginBottom: 2 }}
+              className={classes.subTitle}
+            >
+              Your top tracks -&gt;
+            </Typography>
+            <List
+              sx={{
+                overflowY: "scroll",
+                maxHeight: "45vh",
+                textUnderlinePosition: "under",
+                width: "45vw",
+                position: "absolute",
+                mt: "3.5%",
+                left: "26%",
+                "&::-webkit-scrollbar": {
+                  width: "0.4em",
+                  "-webkit-box-shadow": "inset 0 0 6px rgba(0,0,200,.4)",
+                },
+                "&::-webkit-scrollbar-track": {
+                  "-webkit-box-shadow": "inset 0 0 6px rgba(0,0,0,.4)",
+                },
+              }}
+            >
+              {tracks.map((track, index) => (
+                <ListItem
+                  component={Link}
+                  href={track.external_urls.spotify}
+                  target="_blank"
+                  key={index}
+                  sx={{
+                    display: "flex",
+                    borderBottom: "1px solid #fff",
+                    "&:hover": {
+                      textDecoration: "none",
+                      boxShadow: "0 0 0 0.2rem rgba(200,200,200,.8)",
+                    },
+                  }}
+                >
+                  <Typography
+                    variant="h6"
+                    sx={{
+                      marginRight: 2,
+                      color: "#fff",
+                      textShadow: "2px 2px 4px #000000",
+                      overflowX: "hidden",
+                    }}
+                  >
+                    {track.album?.name} by {track?.artists[0]?.name}
+                  </Typography>
+                </ListItem>
+              ))}
+            </List>
+          </Container>
         ) : (
           <Button
             component={Link}
