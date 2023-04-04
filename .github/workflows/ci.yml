@@ -34,6 +34,12 @@ jobs:
         if: matrix.steps == 'lint'
         run: yarn run lint
 
+      - name: runner / black formatter
+        if: matrix.steps == 'lint'
+        uses: rickstaa/action-black@v1
+        with:
+          black_args: ". --check"
+
       - name: Build Client
         if: matrix.steps == 'build-client'
         working-directory: client
