@@ -1,17 +1,24 @@
 version: "3"
 
 services:
-  app:
-    environment:
-      - REACT_APP_PUBLIC_URL=${REACT_APP_PUBLIC_URL}
-      - REACT_APP_CLIENT_ID=${REACT_APP_CLIENT_ID}
+  nginx:
+    image: nginx:latest
     build:
-      context: .
-      dockerfile: Dockerfile
-      args:
-        REACT_APP_PUBLIC_URL: ${REACT_APP_PUBLIC_URL}
-        REACT_APP_CLIENT_ID: ${REACT_APP_CLIENT_ID}
+      context: ./nginx
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+    restart: always
+  server:
+    build:
+      context: ./server
     ports:
       - "8001:8001"
-    image: ps1242/devops:latest
+    restart: always
+  client:
+    build:
+      context: ./client
+    ports:
+      - "8000:8000"
     restart: always

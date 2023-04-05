@@ -30,9 +30,15 @@ jobs:
         if: matrix.steps != 'docker-build'
         run: yarn install --frozen-lockfile
 
-      - name: Check Linter
+      - name: Check Linter - TypeScript
         if: matrix.steps == 'lint'
         run: yarn run lint
+
+      - name: Check Linter - Python
+        if: matrix.steps == 'lint'
+        uses: rickstaa/action-black@v1
+        with:
+          black_args: ". --check"
 
       - name: Build Client
         if: matrix.steps == 'build-client'
