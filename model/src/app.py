@@ -6,7 +6,7 @@ import os
 app = Flask(__name__)
 
 
-@app.route("/predict", methods=["POST"])
+@app.route("/model", methods=["GET"])
 def index():
     return jsonify("Hello World")
 
