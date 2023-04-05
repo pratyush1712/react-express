@@ -81,6 +81,7 @@ const useStyles = makeStyles(theme => ({
     position: "absolute",
     left: "27%",
     textTransform: "uppercase",
+    textDecoration: "underline #fff 7px",
   },
 }));
 
@@ -152,12 +153,8 @@ export default function App() {
       <Container className={classes.login}>
         {token ? (
           <Container>
-            <Typography
-              variant="h5"
-              sx={{ marginBottom: 2 }}
-              className={classes.subTitle}
-            >
-              Your top tracks -&gt;
+            <Typography variant="h5" className={classes.subTitle}>
+              Your top tracks
             </Typography>
             <List
               sx={{
