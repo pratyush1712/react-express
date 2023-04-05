@@ -19,6 +19,9 @@ services:
   client:
     build:
       context: ./client
+      args:
+        REACT_APP_PUBLIC_URL: ${REACT_APP_PUBLIC_URL}
+        REACT_APP_CLIENT_ID: ${REACT_APP_CLIENT_ID}
     ports:
       - "8000:8000"
     restart: always
