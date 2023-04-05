@@ -25,3 +25,9 @@ services:
     ports:
       - "8000:8000"
     restart: always
+  model:
+    build:
+      context: ./model
+    ports:
+      - "8002:8002"
+    restart: always

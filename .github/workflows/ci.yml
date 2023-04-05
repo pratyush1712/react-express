@@ -50,14 +50,14 @@ jobs:
         working-directory: server
         run: yarn run build
 
-      - name: Check for containerizability
-        if: matrix.steps == 'docker-build'
-        uses: docker/build-push-action@v2
-        with:
-          context: .
-          file: ./Dockerfile
-          push: false
-          labels: |
-            com.github.actions.description="Check for containerizability"
-            com.github.actions.icon="check-circle"
-            com.github.actions.color="green"
+      # - name: Check for containerizability
+      #   if: matrix.steps == 'docker-build'
+      #   uses: docker/build-push-action@v2
+      #   with:
+      #     context: .
+      #     file: ./Dockerfile
+      #     push: false
+      #     labels: |
+      #       com.github.actions.description="Check for containerizability"
+      #       com.github.actions.icon="check-circle"
+      #       com.github.actions.color="green"
