@@ -58,7 +58,7 @@ The web service is built with React and Express. It allows users to log in to th
 
 ### Model
 
-The model service is built with Flask and uses machine learning and data analytics to provide insights into the user's top Spotify tracks. It provides users with recommendations and helps them discover new music based on their preferences.
+The Flask-based model microservice utilizes machine learning and data analytics to provide users with insights about their top Spotify tracks. The model microservice is multi-threaded to speed up requests.
 
 ### Nginx
 
