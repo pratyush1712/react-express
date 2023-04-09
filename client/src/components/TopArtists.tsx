@@ -6,56 +6,33 @@ import { ApexOptions } from "apexcharts";
 import { makeStyles } from "@mui/styles";
 import { createTheme } from "@mui/material/styles";
 
-const MODEL_ENDPOINT =
-  process.env.NODE_ENV === "production" ? "" : "http://localhost:8002";
-
 interface ArtistData {
   name: string;
   count: number;
 }
 
-export default function TopArtists() {
-  const [artists, setArtists] = useState<Record<string, number>>({});
-  const [tracks, setTracks] = useState<string[]>([]);
-
-  useEffect(() => {
-    setTracks(JSON.parse(window.localStorage.getItem("tracks")!));
-  }, []);
-
-  useEffect(() => {
-    if (tracks.length === 0) return;
-    (async () => {
-      fetch(`${MODEL_ENDPOINT}/model/analyse-tracks`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ tracks: tracks }),
-      })
-        .then(res => res.json())
-        .then(data => {
-          setArtists(data.top_artists);
-        });
-    })();
-  }, [tracks]);
-
+export default function TopArtists({
+  artists,
+}: {
+  artists: Record<string, number>;
+}) {
   const [series, setSeries] = useState<[{ data: number[] }]>([{ data: [] }]);
   const [options, setOptions] = useState<ApexOptions>({
     chart: {
       type: "bar",
-      height: 350,
       fontFamily: "Helvetica, Arial, sans-serif",
       foreColor: "#333",
     },
     plotOptions: {
       bar: {
         horizontal: true,
+        barHeight: "50%",
         colors: {
           ranges: [
             {
               from: 0,
               to: 100,
-              color: `rgba(0, 0, 0, 0.5)`,
+              color: `rgba(220, 220, 220, 0.5)`,
             },
           ],
         },
@@ -74,10 +51,10 @@ export default function TopArtists() {
       labels: {
         show: true,
         rotate: -45,
-        rotateAlways: false,
+        rotateAlways: true,
         trim: true,
         minHeight: undefined,
-        maxHeight: 120,
+        maxHeight: 180,
         style: {
           fontSize: "10px",
           fontWeight: 600,
@@ -89,16 +66,16 @@ export default function TopArtists() {
       title: {
         text: "Artist",
         style: {
-          fontSize: "12px",
-          fontWeight: 600,
+          fontSize: "16px",
+          fontWeight: 900,
           color: "#333",
         },
       },
       labels: {
         show: true,
         style: {
-          fontSize: "10px",
-          fontWeight: 600,
+          fontSize: "13px",
+          fontWeight: 700,
           colors: ["#333"],
         },
       },
@@ -110,15 +87,15 @@ export default function TopArtists() {
       style: {
         fontSize: "20px",
         fontWeight: 600,
-        color: "#333",
+        color: "#fff",
       },
     },
   });
 
   useEffect(() => {
-    const artistArray: ArtistData[] = Object.entries(artists).map(
-      ([name, count]) => ({ name, count }),
-    );
+    const artistArray: ArtistData[] = Object.entries(artists)
+      .filter((artist, index) => index < 10)
+      .map(([name, count]) => ({ name, count }));
     setSeries([{ data: artistArray.map(artist => artist.count) }]);
     setOptions({
       ...options,
@@ -127,16 +104,15 @@ export default function TopArtists() {
       },
     });
   }, [artists]);
-  console.log(series);
 
   return (
-    <Container sx={{ maxWidth: "100px", width: "100%" }}>
-      <Box sx={{ my: 10, maxWidth: "65%" }}>
+    <Container sx={{ maxWidth: "100%" }}>
+      <Box sx={{ maxWidth: "100%", ml: -7 }}>
         <ReactApexChart
           options={options}
           series={series}
           type="bar"
-          height={350}
+          height={450}
         />
       </Box>
     </Container>
