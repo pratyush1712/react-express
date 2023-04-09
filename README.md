@@ -21,7 +21,7 @@ To install and run the app, follow these steps:
 - Clone this repository to your local machine.
 
 ```
-git clone https://github.com/<username>/harmonious-sounds.git
+git clone https://github.com/pratyush1712/harmonious-sounds.git
 ```
 
 - Navigate to the root directory of the project in your terminal.
