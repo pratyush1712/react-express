@@ -6,20 +6,5 @@
   "arrowParens": "avoid",
   "printWidth": 80,
   "proseWrap": "preserve",
-  "endOfLine": "lf",
-  "overrides": [
-    {
-      "files": "*.py",
-      "options": {
-        "parser": "python",
-        "plugins": [
-          "prettier/plugin-python"
-        ],
-        "prettier/plugin-python": {
-          "parser": "python",
-          "style": "black"
-        }
-      }
-    }
-  ]
+  "endOfLine": "lf"
 }

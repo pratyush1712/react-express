@@ -1,4 +1,3 @@
-__pycache__/*
 env/*
 .vscode/
 src/*.pyc
@@ -8,8 +7,7 @@ src/config*
 data/
 config.py
 models/
-img/
 src/static/uploads/
-.DS_Store
-src/.DS_Store
 venv
+__pycache__
+.cache

@@ -1,19 +1,21 @@
 import express from "express";
 import path from "path";
 import cors from "cors";
-import dotenv from "dotenv";
+import cookieParser from "cookie-parser";
 
+import "./config";
 import user from "./routes/user";
-
-dotenv.config({ path: path.join(__dirname, "../.env") });
+import auth from "./routes/auth";
 
 const port = process.env.PORT || 8001;
-
 const app = express();
+
 app.use(cors());
+app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use("/api/user", user);
+app.use("/api/auth", auth);
 
 const buildPath = path.join(__dirname, "..", "..", "client", "build");
 app.use(express.static(buildPath));
