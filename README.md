@@ -1,7 +1,6 @@
-# React Express + DevOps
+# Harmonious Sounds
 
-Welcome to React Express + DevOps - a web app built with React and Express, with a focus on
-improving DevOps skills. The app follows a basic React-Express architecture and has been deployed using **Okteto**.
+Welcome to Harmonious Sounds - a web app built with React, Express, Flask, and Nginx, with a focus on improving DevOps skills. The app follows a microservices architecture and has been deployed using **Okteto**.
 
 Website Link: https://nginx-devops-pratyush1712.cloud.okteto.net/
 
@@ -12,6 +11,8 @@ Before you begin building and running the app, make sure you have the following 
 - Node
 - Yarn package manager
 - Okteto CLI
+- Docker
+- Docker Compose
 
 ## Installation Guide
 
@@ -20,13 +21,13 @@ To install and run the app, follow these steps:
 - Clone this repository to your local machine.
 
 ```
-git clone https://github.com/pratyush1712/react-express.git
+git clone https://github.com/<username>/harmonious-sounds.git
 ```
 
 - Navigate to the root directory of the project in your terminal.
 
 ```
-cd react-express
+cd harmonious-sounds
 ```
 
 - Install the dependencies for the client and server directories.
@@ -42,6 +43,26 @@ yarn run dev
 ```
 
 Once the app is running, you can access it by navigating to `http://localhost:8000` in your web browser.
+The following microservices will be running:
+- Client: `http://localhost:8000`
+- Server: `http://localhost:8001`
+- Model: `http://localhost:8002`
+
+## Microservices
+
+The app consists of the following microservices:
+
+### Web
+
+The web service is built with React and Express. It allows users to log in to their Spotify account, view their top tracks and artists, and listen to their favorite tracks.
+
+### Model
+
+The model service is built with Flask and uses machine learning and data analytics to provide insights into the user's top Spotify tracks. It provides users with recommendations and helps them discover new music based on their preferences.
+
+### Nginx
+
+The nginx service acts as a reverse proxy and is used to route requests between the web and model services.
 
 ## DevOps Pipelines
 
@@ -67,4 +88,4 @@ Once you have set up these accounts and configured them to work with your reposi
 will trigger the pipeline. You can monitor the progress of the pipeline in the Okteto dashboard, and once it is complete,
 you should be able to access the app in your Okteto environment.
 
-Thank you for using my React Express web app! If you have any questions or feedback, please feel free to contact me.
+Thank you for using my Harmonious Sounds web app! If you have any questions or feedback, please feel free to contact me.
