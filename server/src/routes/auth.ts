@@ -1,20 +1,18 @@
-import express from "express";
-import crypto from "crypto";
-import querystring from "querystring";
+import express, { Request, Response, Router } from "express";
 import { Buffer } from "buffer";
 import request from "request";
 import { spotify } from "../config";
 
 const STATE_KEY = "spotify_auth_state";
 
-const router = express.Router();
+const router: Router = express.Router();
 
-router.post("/login", (req, res) => {
-  const code = req.body.code;
-  const state = req.body.state;
+router.post("/login", (req: Request, res: Response) => {
+  const code: string = req.body.code;
+  const state: string = req.body.state;
   if (!state) res.status(400).json("state missing");
   else {
-    const authOptions = {
+    const authOptions: request.OptionsWithUrl = {
       url: "https://accounts.spotify.com/api/token",
       form: {
         code,
@@ -28,11 +26,11 @@ router.post("/login", (req, res) => {
       },
       json: true,
     };
-    request.post(authOptions, function (error, response, body) {
+    request.post(authOptions, function (error: any, response: any, body: any) {
       if (!error && response.statusCode === 200) {
-        const access_token = body.access_token;
-        const refresh_token = body.refresh_token;
-        const expires_in = body.expires_in;
+        const access_token: string = body.access_token;
+        const refresh_token: string = body.refresh_token;
+        const expires_in: number = body.expires_in;
         res.send({
           access_token: access_token,
           refresh_token: refresh_token,
@@ -43,9 +41,9 @@ router.post("/login", (req, res) => {
   }
 });
 
-router.get("/refresh_token", (req, res) => {
-  const refreshToken = req.query.refresh_token;
-  const authOptions = {
+router.get("/refresh_token", (req: Request, res: Response) => {
+  const refreshToken: string = req.query.refresh_token as string;
+  const authOptions: request.OptionsWithUrl = {
     url: "https://accounts.spotify.com/api/token",
     headers: {
       Authorization: `Basic ${Buffer.from(
@@ -58,10 +56,10 @@ router.get("/refresh_token", (req, res) => {
     },
     json: true,
   };
-  request.post(authOptions, (error, response, body) => {
+  request.post(authOptions, (error: any, response: any, body: any) => {
     if (!error && response.statusCode === 200) {
-      const accessToken = body.access_token;
-      const refresh_token = body.refresh_token;
+      const accessToken: string = body.access_token;
+      const refresh_token: string = body.refresh_token;
       res.send({ access_token: accessToken, refresh_token: refresh_token });
     }
   });
