@@ -44,6 +44,7 @@ yarn run dev
 
 Once the app is running, you can access it by navigating to `http://localhost:8000` in your web browser.
 The following microservices will be running:
+
 - Client: `http://localhost:8000`
 - Server: `http://localhost:8001`
 - Model: `http://localhost:8002`
