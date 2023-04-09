@@ -24,7 +24,6 @@ client_credentials_manager = SpotifyClientCredentials(
 )
 sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
 
-
 def unpack(json_name):
     """
     unpack a json playlist file to obtain a playlist
@@ -41,9 +40,7 @@ def unpack(json_name):
     playlists = data["playlists"]
     return playlists
 
-
 playlists = unpack(json_name="playlists.json")
-
 
 def find_uris(playlists, start=0, SIZE=SIZE):
     """
@@ -57,11 +54,9 @@ def find_uris(playlists, start=0, SIZE=SIZE):
     pids = [playlists[i]["pid"] for i in range(start, SIZE)]
     return track_uris, pids
 
-
 # check track_uris for first playlist in dataset
 start = 0
 uri_list, pids = find_uris(playlists, start, SIZE)
-
 
 def playlist_summarise(playlist_uri):
     """
@@ -117,14 +112,12 @@ def playlist_summarise(playlist_uri):
         tempo,
     ]
 
-
 def normalize_df(df, col_names):
     x = df.values  # returns a numpy array
     min_max_scaler = MinMaxScaler()
     x_scaled = min_max_scaler.fit_transform(x)
     df = pd.DataFrame(x_scaled, columns=col_names)
     return df
-
 
 def create_playlist_dataframe(playlists):
     """
@@ -160,7 +153,6 @@ def create_playlist_dataframe(playlists):
     # insert ids
     df["pid"] = pids
     return df
-
 
 # playlist_df = create_playlist_dataframe(playlists)
 playlist_df = pd.read_csv("playlist_df.csv", index_col=0)
@@ -254,7 +246,6 @@ genre_list = (
     + (["alternative"] * len(alternative_uris))
 )
 
-
 def create_song_dataframe(song_uris):
     """
     combine all song URIS into a df
@@ -312,7 +303,6 @@ def create_song_dataframe(song_uris):
     df["genre"] = genre_list
     return df
 
-
 song_df = create_song_dataframe(song_uris)
 
 # label encode
@@ -321,7 +311,6 @@ for i in range(len(genres)):
 
 playlist_df_ul = playlist_df.drop(columns=["pid"])
 song_df_ul = song_df.drop(columns=["uri", "genre"])
-
 
 # ------------------------------------------------
 
@@ -351,7 +340,6 @@ from keras.callbacks import EarlyStopping
 from keras.losses import CategoricalCrossentropy
 from keras import backend as K
 import tensorflow as tf
-
 
 X = song_df.drop(columns=["uri", "genre"]).values
 y = song_df[["genre"]].values.ravel()
@@ -420,7 +408,6 @@ def classification_model():
     model.compile(loss=loss, optimizer=opt, metrics=["accuracy"])
     return model
 
-
 # define model
 classifier = KerasClassifier(
     build_fn=classification_model, epochs=3000, batch_size=300, verbose=0
@@ -432,7 +419,6 @@ history = classifier.fit(X_train, y_train, validation_split=0.05, callbacks=[es]
 classifier.fit(X_train, y_train)
 # Predict the model with the test data
 y_pred = classifier.predict(X_test)
-
 
 def classify_playlist(playlist, KNN=True):
     """
@@ -446,7 +432,6 @@ def classify_playlist(playlist, KNN=True):
         playlist_prediction = classifier.predict(playlist.reshape(1, 9))
 
     return playlist_prediction
-
 
 def predict_song(playlist_index, KNN, uri_label, own_playlist):
 
@@ -518,7 +503,6 @@ def predict_song(playlist_index, KNN, uri_label, own_playlist):
             break
 
     return
-
 
 predict_song(
     playlist_index=0,
@@ -599,13 +583,11 @@ genres = [
     "alternative",
 ]
 
-
 def logitodds_to_probs(odds):
     """
     take exponent and divide over sum
     """
     return np.exp(odds) / np.sum(np.exp(odds))
-
 
 def most_likely(probs):
     """
@@ -614,14 +596,12 @@ def most_likely(probs):
     max_prob = np.argmax(probs)
     return max_prob
 
-
 # append highest probability songs using functions above
 blr_classes = []
 for i in target:
     probs = logitodds_to_probs(i)
     classification = most_likely(probs)
     blr_classes.append(classification)
-
 
 def predict_song_blr(class_array, index):
     """
