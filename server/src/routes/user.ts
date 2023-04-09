@@ -13,7 +13,7 @@ router.get("/top-tracks", (req, res) => {
   if (!token) res.status(400).json("token missing");
   else {
     const authOptions = {
-      url: "https://api.spotify.com/v1/me/top/tracks",
+      url: "https://api.spotify.com/v1/me/top/tracks?limit=50&offset=0",
       headers: {
         Authorization: `Bearer ${token}`,
       },
