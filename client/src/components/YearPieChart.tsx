@@ -14,11 +14,23 @@ export default function YearPieChart({
       type: "donut",
       fontFamily: "Helvetica, Arial, sans-serif",
       foreColor: "#333",
+      toolbar: {
+        show: true,
+      },
+    },
+    theme: {
+      mode: "light",
+      palette: "palette9",
+      monochrome: {
+        enabled: true,
+        color: "#808080",
+      },
     },
     title: {
-      text: "Favorite Era",
+      text: "Decade-wise Distribution of Top Songs",
       align: "center",
       floating: false,
+      margin: 10,
       style: {
         fontSize: "20px",
         fontWeight: 600,
@@ -40,8 +52,6 @@ export default function YearPieChart({
       markers: {
         strokeWidth: 0,
         strokeColor: "#fff",
-        // shades of gray
-        fillColors: ["#000", "#333", "#666", "#777", "#222", "#fff"],
         radius: 12,
       },
       formatter: function (seriesName: string, opts: any) {
@@ -65,7 +75,7 @@ export default function YearPieChart({
       labels: yearArray.map(([year]) => year),
     });
   }, [years]);
-  console.log(series);
+
   return (
     <Container sx={{ width: "100%" }}>
       <Box sx={{ maxWidth: "100%", ml: -7 }}>
