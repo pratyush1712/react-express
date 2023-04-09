@@ -1,6 +1,6 @@
 // use react-apex charts to display top artists in form of bar graph
 import React, { useEffect, useState } from "react";
-import { Container, Box, ListItem, Typography } from "@mui/material";
+import { Container, Box } from "@mui/material";
 import ReactApexChart from "react-apexcharts";
 import { ApexOptions } from "apexcharts";
 import { makeStyles } from "@mui/styles";
@@ -14,45 +14,9 @@ interface ArtistData {
   count: number;
 }
 
-const darkTheme = createTheme({
-  palette: {
-    mode: "dark",
-  },
-});
-
-const useStyles = makeStyles(theme => ({
-  root: {
-    backgroundSize: "cover",
-    padding: "40px",
-    minHeight: "100vh",
-    minWidth: "100%",
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  title: {
-    color: "#fff",
-    fontWeight: "bold",
-    textShadow: "2px 2px 4px #000000",
-    marginBottom: "40px",
-  },
-  listItem: {
-    color: "#fff",
-    fontWeight: "bold",
-    textShadow: "2px 2px 4px #000000",
-    marginBottom: "10px",
-  },
-  subTitle: {
-    color: "#fff",
-    textShadow: "2px 2px 4px #000000",
-    textTransform: "uppercase",
-  },
-}));
-
 export default function TopArtists() {
   const [artists, setArtists] = useState<Record<string, number>>({});
   const [tracks, setTracks] = useState<string[]>([]);
-  const classes = useStyles(darkTheme);
 
   useEffect(() => {
     setTracks(JSON.parse(window.localStorage.getItem("tracks")!));

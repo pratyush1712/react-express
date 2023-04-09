@@ -10,7 +10,7 @@ import {
   ListItem,
   Typography,
 } from "@mui/material";
-import { ThemeOptions, ThemeProvider, createTheme } from "@mui/material/styles";
+import { ThemeOptions, createTheme } from "@mui/material/styles";
 import { CLIENT_ID, REDIRECT_URI, generateRandomString } from "../utils/auth";
 import Cookies from "js-cookie";
 import { NavLink } from "react-router-dom";
