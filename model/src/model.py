@@ -51,29 +51,46 @@ def get_playlist_info(playlist):
     return names, artists, uris
 
 
-def get_features_for_playlist(df, playlist):
-    # get all track metadata from given playlist
-    names, artists, uris = get_playlist_info(playlist)
-
-    # iterate through each track to get audio features and save data into dataframe
-    for name, artist, track_uri in zip(names, artists, uris):
-        # access audio features for given track URI via spotipy
-        try:
-            audio_features = spotify.audio_features(track_uri)
-        except Exception as e:
-            continue
-
-        # add sleep time of 1 second to avoid API rate limiting
-
-        # get relevant audio features
+def get_features_for_track(df, track_uri):
+    # access audio features for given track URI via spotipy
+    try:
+        audio_features = spotify.audio_features(track_uri)
         feature_subset = [
             audio_features[0][col]
             for col in df.columns
             if col not in ["name", "artist", "track_URI", "playlist"]
         ]
-        # compose a row of the dataframe by flattening the list of audio features
-        row = [name, artist, track_uri, *feature_subset, playlist["name"]]
-        df.loc[len(df.index)] = row
+        return feature_subset
+    except Exception as e:
+        return None
+
+
+def get_features_for_playlist(df, playlist):
+    # get all track metadata from given playlist
+    names, artists, uris = get_playlist_info(playlist)
+
+    # create list of track_uris to pass to concurrent.futures ThreadPoolExecutor
+    track_uris = [
+        (name, artist, track_uri)
+        for name, artist, track_uri in zip(names, artists, uris)
+    ]
+
+    # create ThreadPoolExecutor with max_workers=10
+    with concurrent.futures.ThreadPoolExecutor(max_workers=10) as executor:
+        # submit each track_uri to executor and collect the Future objects
+        futures = [
+            executor.submit(get_features_for_track, df, track_uri)
+            for _, _, track_uri in track_uris
+        ]
+
+        # iterate through each Future object, retrieve the result (or None), and save data into dataframe
+        for future, (name, artist, track_uri) in zip(futures, track_uris):
+            audio_features = future.result()
+            if audio_features is not None:
+                # compose a row of the dataframe by flattening the list of audio features
+                row = [name, artist, track_uri, *audio_features, playlist["name"]]
+                df.loc[len(df.index)] = row
+
     return df
 
 
@@ -200,14 +217,9 @@ def predict(playlists):
     )[:, 1]
     mixed.insert(3, "prediction", vnpred)
     day_median = float(np.median(mixed["prediction"]))
-    for i in range(10):
-        print(mixed.loc[i, "name"], "  ", mixed.loc[i, "prediction"])
     return day_median
 
 
 playlists = [
-    "spotify:playlist:37i9dQZF1EIhmSBwUDxg84",
+    "spotify:playlist:2AuX2awDcS9oMVBnWGPkGo",
 ]
-
-# train()
-# print(predict(playlists))
