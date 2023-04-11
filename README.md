@@ -2,6 +2,15 @@
 
 Welcome to Harmonious Sounds - a web app built with React, Express, Flask, and Nginx, with a focus on improving DevOps skills. The app follows a microservices architecture and has been deployed using **Okteto**.
 
+## Features
+
+- View your top tracks and artists on Spotify
+- See some insights about your top tracks:
+  - average danceability, energy, valence, etc...
+  - top artists and genres
+  - top tracks and artists by decade
+- See a happiness score for your favorite playlists, calculated using machine learning
+
 Website Link: https://nginx-devops-pratyush1712.cloud.okteto.net/
 
 ## Prerequisites
@@ -60,6 +69,8 @@ The web service is built with React and Express. It allows users to log in to th
 ### Model
 
 The Flask-based model microservice utilizes machine learning and data analytics to provide users with insights about their top Spotify tracks. The model microservice is multi-threaded to speed up requests.
+
+<ins>Logistic regression</ins> is used to predict the happiness score of a track based on its audio features. The model is trained on a dataset of <ins>1000+ tracks</ins>, and the <ins>accuracy of the model is 88%</ins>.
 
 ### Nginx
 
