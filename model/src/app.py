@@ -20,11 +20,13 @@ def index():
     return response
 
 
-@app.route("/model/predict-mood/<playlist_id>/")
+@app.route("/model/predict-mood/", methods=["POST"])
 @cross_origin()
-def mood_predict(playlist_id):
+def mood_predict():
+    playlist_id = request.get_json().get("playlist_id")
     data = predict([f"spotify:playlist:{playlist_id}"])
-    return jsonify(f"{round(data*100, 2)}% happy")
+    resp = {"mood": round(data*100,2)}
+    return jsonify(resp)
 
 
 if __name__ == "__main__":

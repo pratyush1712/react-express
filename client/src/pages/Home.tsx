@@ -71,7 +71,7 @@ const useStyles = makeStyles(theme => ({
     color: "#fff",
     fontWeight: "bold",
     textShadow: "2px 2px 4px #000000",
-    position: "absolute",
+    top: "50%",
     left: "27%",
     textTransform: "uppercase",
   },
@@ -149,9 +149,11 @@ export default function Home() {
     fontSize: "20px",
     color: "#fff",
     fontWeight: "bold",
-    marginBottom: "10px",
     textShadow: "2px 2px 4px #000000",
     textDecoration: "none",
+    maxWidth: "600px",
+    postion: "absolute",
+    top: "70%",
     boxShadow: "0 0 0 0.2rem rgba(220,220,220)",
     "&:hover": {
       textDecoration: "none",
@@ -160,41 +162,27 @@ export default function Home() {
 
   return (
     <Container className={classes.root}>
-      {token && (
-        <Button
-          variant="text"
-          sx={buttonStyle}
-          component={NavLink}
-          to="/analytics"
-        >
-          Click here to see what your top tracks say about you!
-        </Button>
-      )}
       <Typography variant="h2" className={classes.title} gutterBottom>
         Harmonious Sounds
         <Typography className={classes.caption} gutterBottom>
           ...exploring the world of music
         </Typography>
       </Typography>
-      <Button
-        variant="text"
-        sx={{
-          position: "absolute",
-          top: "30%",
-          left: "40%",
-          ...buttonStyle,
-          display: token ? "block" : "none",
-        }}
-        onClick={token ? signOut : authorize}
-      >
-        Sign Out
-      </Button>
       <Container className={classes.login}>
         {token ? (
           <Container>
-            <Typography variant="h5" className={classes.subTitle}>
-              Your top tracks
-            </Typography>
+            <Button
+              variant="text"
+              component={NavLink}
+              to="/analytics"
+              sx={{
+                left: "24%",
+                ...buttonStyle,
+                display: token ? "block" : "none",
+              }}
+            >
+              Click here to see some analysis of your top tracks shown below
+            </Button>
             <List
               sx={{
                 overflowY: "scroll",

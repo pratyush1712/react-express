@@ -62,7 +62,6 @@ def get_tracks_analysis(tracks):
         "liveness": 0,
         "loudness": 0,
         "speechiness": 0,
-        "tempo": 0,
         "valence": 0,
     }
     decade_features = {
@@ -83,6 +82,10 @@ def get_tracks_analysis(tracks):
     # round average features
     for feature in average_features:
         average_features[feature] = round(average_features[feature] / len(tracks), 2)
+        if abs(average_features[feature]) <= 1:
+            average_features[feature] = 50 + (average_features[feature] * 50)
+        else:
+            average_features[feature] = 50 + (average_features[feature] / 2)
     # drop decade features with no tracks
     decade_features = {k: v for k, v in decade_features.items() if v}
 
