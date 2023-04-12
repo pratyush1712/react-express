@@ -220,6 +220,5 @@ def predict(playlists):
     return day_median
 
 
-playlists = [
-    "spotify:playlist:2AuX2awDcS9oMVBnWGPkGo",
-]
+if __name__=="__main__":
+    train()
