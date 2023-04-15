@@ -134,16 +134,23 @@ export default function Home() {
     }
   }, [loggedIn]);
 
+  const fetchTracks = () => {
+    fetch("/api/user/top-tracks")
+      .then(res => res.json())
+      .then(data => {
+        setTracks(data.items);
+        window.localStorage.setItem("tracks", JSON.stringify(data.items));
+      });
+  };
+
   useEffect(() => {
-    if (token) {
-      fetch("/api/user/top-tracks")
-        .then(res => res.json())
-        .then(data => {
-          setTracks(data.items);
-          window.localStorage.setItem("tracks", JSON.stringify(data.items));
-        });
-    } else setTracks([]);
+    if (token) fetchTracks();
+    else setTracks([]);
   }, [token]);
+
+  useEffect(() => {
+    fetchTracks();
+  });
 
   const buttonStyle = {
     fontSize: "20px",
