@@ -138,9 +138,10 @@ export default function Home() {
     fetch("/api/user/top-tracks")
       .then(res => res.json())
       .then(data => {
-        setTracks(data.items);
+        if (data.items) setTracks(data.items);
         window.localStorage.setItem("tracks", JSON.stringify(data.items));
-      });
+      })
+      .catch(err => console.log(err));
   };
 
   useEffect(() => {
@@ -150,7 +151,7 @@ export default function Home() {
 
   useEffect(() => {
     fetchTracks();
-  });
+  }, []);
 
   const buttonStyle = {
     fontSize: "20px",
