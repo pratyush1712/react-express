@@ -24,6 +24,7 @@ jobs:
           pip install -r requirements.txt
 
       - name: Create and commit file
+        working-directory: ./model/
         run: |
           python src/model.py
           git config --global user.name "Pratyush Sudhakar"

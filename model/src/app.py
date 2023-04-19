@@ -30,5 +30,9 @@ def mood_predict():
 
 
 if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 8002))
-    app.run(host="0.0.0.0", port=port, debug=True)
+    if os.environ.get("ENV") == "PRODUCTION":
+        port = int(os.environ.get("PORT", 8000))
+        app.run(host="0.0.0.0", port=port, threaded=True)
+    else:
+        port = int(os.environ.get("PORT", 8002))
+        app.run(host="0.0.0.0", port=port, debug=True)
