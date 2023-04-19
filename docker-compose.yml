@@ -36,7 +36,9 @@ services:
     build:
       context: ./model
     ports:
-      - "8002-8004:8002/tcp"
+      - target: 8002
+        published: 8002-8004
+        protocol: tcp
     deploy:
       replicas: 3
     restart: always
