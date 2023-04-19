@@ -36,7 +36,7 @@ services:
     build:
       context: ./model
     ports:
-      - "8002-8004:8002"
+      - "8002-8004:8002/tcp"
     deploy:
       replicas: 3
     restart: always
