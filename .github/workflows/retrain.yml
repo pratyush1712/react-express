@@ -2,7 +2,7 @@ name: Retrain model with updated dataset
 
 on:
   schedule:
-    - cron: "* 2 * * 3" # Runs every Wednesdat at 1:13 AM
+    - cron: "* 3 * * 3" # Runs every Wednesdat at 1:13 AM
 
 jobs:
   create-and-commit-file:
@@ -26,12 +26,14 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Create and commit file
+      - name: Retrain model
         working-directory: ./model/
         run: |
           python src/model.py
-          git config --global user.name "Pratyush Sudhakar"
-          git config --global user.email "pratyushsudhakar03@gmail.com"
-          git add .
-          git commit -m "Retrained model with updated dataset"
-          git push
+      
+      - name: Commit model
+        uses: EndBug/add-and-commit@v9.1.1
+        with:
+          message: Retrain model with updated data
+          committer_name: TrainBot
+          committer_email: actions@github.com
