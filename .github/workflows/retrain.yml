@@ -7,6 +7,9 @@ on:
 jobs:
   create-and-commit-file:
     runs-on: ubuntu-latest
+    env:
+      SPOTIFY_CLIENT_ID: ${{ env.SPOTIFY_CLIENT_ID }} 
+      SPOTIFY_CLIENT_SECRET: ${{ env.SPOTIFY_CLIENT_SECRET }} 
 
     steps:
       - name: Checkout repository
