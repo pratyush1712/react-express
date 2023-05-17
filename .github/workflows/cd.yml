@@ -19,7 +19,6 @@ jobs:
           REACT_APP_PUBLIC_URL: ${{ secrets.STAGING_URL }}
           REACT_APP_CLIENT_ID: ${{ secrets.REACT_APP_CLIENT_ID }}
 
-
       - name: "Activate Namespace"
         uses: okteto/namespace@latest
         with:

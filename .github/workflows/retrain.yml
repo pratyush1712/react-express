@@ -2,7 +2,7 @@ name: Retrain model with updated dataset
 
 on:
   schedule:
-    - cron: '0 0 * * 1' # Runs every Monday at 00:00
+    - cron: "0 0 * * 1" # Runs every Monday at 00:00
 
 jobs:
   create-and-commit-file:
@@ -10,8 +10,8 @@ jobs:
     permissions:
       contents: write
     env:
-      SPOTIFY_CLIENT_ID: ${{ secrets.REACT_APP_CLIENT_ID }} 
-      SPOTIFY_CLIENT_SECRET: ${{ secrets.REACT_APP_CLIENT_SECRET }} 
+      SPOTIFY_CLIENT_ID: ${{ secrets.REACT_APP_CLIENT_ID }}
+      SPOTIFY_CLIENT_SECRET: ${{ secrets.REACT_APP_CLIENT_SECRET }}
 
     steps:
       - name: Checkout repository
@@ -32,20 +32,20 @@ jobs:
         working-directory: ./model/
         run: |
           python src/model.py
-      
+
       - name: Commit model
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
           commit_message: Retrained Model with Updated Data
           branch: master
-          commit_options: '--no-verify --signoff'
+          commit_options: "--no-verify --signoff"
           file_pattern: .
           repository: .
 
-          # Optional. Tag name being created in the local repository and 
+          # Optional. Tag name being created in the local repository and
           # pushed to remote repository and defined branch.
-          tagging_message: 'v1.0.0'
-          status_options: '--untracked-files=no'
-          add_options: '-u'
-          push_options: '--force'
+          tagging_message: "v1.0.0"
+          status_options: "--untracked-files=no"
+          add_options: "-u"
+          push_options: "--force"
           skip_dirty_check: true
