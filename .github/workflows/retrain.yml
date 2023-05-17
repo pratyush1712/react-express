@@ -7,6 +7,8 @@ on:
 jobs:
   create-and-commit-file:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     env:
       SPOTIFY_CLIENT_ID: ${{ secrets.REACT_APP_CLIENT_ID }} 
       SPOTIFY_CLIENT_SECRET: ${{ secrets.REACT_APP_CLIENT_SECRET }} 
@@ -32,8 +34,18 @@ jobs:
           python src/model.py
       
       - name: Commit model
-        uses: EndBug/add-and-commit@v9.1.1
+        uses: stefanzweifel/git-auto-commit-action@v4
         with:
-          message: Retrain model with updated data
-          committer_name: TrainBot
-          committer_email: actions@github.com
+          commit_message: Retrained Model with Updated Data
+          branch: master
+          commit_options: '--no-verify --signoff'
+          file_pattern: .
+          repository: .
+
+          # Optional. Tag name being created in the local repository and 
+          # pushed to remote repository and defined branch.
+          tagging_message: 'v1.0.0'
+          status_options: '--untracked-files=no'
+          add_options: '-u'
+          push_options: '--force'
+          skip_dirty_check: true
