@@ -14,7 +14,11 @@ export default function TopArtists({artists}: {artists: Record<string, number>})
   const [options, setOptions] = useState<ApexOptions>({
     chart: {type: "bar", fontFamily: "Helvetica, Arial, sans-serif", foreColor: "#333"},
     plotOptions: {
-      bar: {horizontal: true, barHeight: "50%", colors: {ranges: [{from: 0, to: 100, color: `rgba(220, 220, 220, 0.5)`}]}}
+      bar: {
+        horizontal: true,
+        barHeight: "50%",
+        colors: {ranges: [{from: 0, to: 100, color: `rgba(220, 220, 220, 0.5)`}]}
+      }
     },
     dataLabels: {enabled: true, offsetY: -20, style: {fontSize: "12px", colors: ["#333"]}},
     xaxis: {

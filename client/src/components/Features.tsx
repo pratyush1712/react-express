@@ -14,7 +14,11 @@ export default function Features({features}: {features: Record<string, number>})
   const [options, setOptions] = useState<ApexOptions>({
     chart: {type: "bar", fontFamily: "Helvetica, Arial, sans-serif", foreColor: "#333"},
     plotOptions: {
-      bar: {horizontal: true, barHeight: "50%", colors: {ranges: [{from: 0, to: 100, color: `rgba(220, 220, 220, 0.5)`}]}}
+      bar: {
+        horizontal: true,
+        barHeight: "50%",
+        colors: {ranges: [{from: 0, to: 100, color: `rgba(220, 220, 220, 0.5)`}]}
+      }
     },
     dataLabels: {
       enabled: true,
@@ -52,7 +56,10 @@ export default function Features({features}: {features: Record<string, number>})
   });
 
   useEffect(() => {
-    const artistArray: FeaturesData[] = Object.entries(features).map(([name, count]) => ({name, count}));
+    const artistArray: FeaturesData[] = Object.entries(features).map(([name, count]) => ({
+      name,
+      count
+    }));
     setSeries([{data: artistArray.map(artist => artist.count)}]);
     setOptions({
       ...options,

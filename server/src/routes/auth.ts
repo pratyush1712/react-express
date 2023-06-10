@@ -20,7 +20,9 @@ router.post("/login", (req: Request, res: Response) => {
         grant_type: "authorization_code"
       },
       headers: {
-        Authorization: `Basic ${Buffer.from(`${spotify.CLIENT_ID}:${spotify.CLIENT_SECRET}`).toString("base64")}`
+        Authorization: `Basic ${Buffer.from(
+          `${spotify.CLIENT_ID}:${spotify.CLIENT_SECRET}`
+        ).toString("base64")}`
       },
       json: true
     };
@@ -44,7 +46,9 @@ router.get("/refresh_token", (req: Request, res: Response) => {
   const authOptions: request.OptionsWithUrl = {
     url: "https://accounts.spotify.com/api/token",
     headers: {
-      Authorization: `Basic ${Buffer.from(`${spotify.CLIENT_ID}:${spotify.CLIENT_SECRET}`).toString("base64")}`
+      Authorization: `Basic ${Buffer.from(`${spotify.CLIENT_ID}:${spotify.CLIENT_SECRET}`).toString(
+        "base64"
+      )}`
     },
     form: {
       grant_type: "refresh_token",

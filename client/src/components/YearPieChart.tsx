@@ -6,7 +6,12 @@ import {ApexOptions} from "apexcharts";
 export default function YearPieChart({years}: {years: Record<string, string[]>}) {
   const [series, setSeries] = useState<number[]>([]);
   const [options, setOptions] = useState<ApexOptions>({
-    chart: {type: "donut", fontFamily: "Helvetica, Arial, sans-serif", foreColor: "#333", toolbar: {show: true}},
+    chart: {
+      type: "donut",
+      fontFamily: "Helvetica, Arial, sans-serif",
+      foreColor: "#333",
+      toolbar: {show: true}
+    },
     theme: {mode: "light", palette: "palette9", monochrome: {enabled: true, color: "#808080"}},
     title: {
       text: "Decade-wise Distribution of Top Songs",

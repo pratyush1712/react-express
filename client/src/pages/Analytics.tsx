@@ -55,7 +55,11 @@ const Analytics = () => {
     })
       .then(res => res.json())
       .then(data => {
-        setData({artists: data.top_artists, years: data.decade_features, features: data.average_features});
+        setData({
+          artists: data.top_artists,
+          years: data.decade_features,
+          features: data.average_features
+        });
         setLoading(false);
       });
   }, []);
@@ -66,7 +70,13 @@ const Analytics = () => {
       <Typography variant="h2" className={classes.title} gutterBottom>
         Some Analysis
       </Typography>
-      <TextField id="Standard" label="Type your favorite playlist url" variant="standard" onChange={e => setUrl(e.target.value)} sx={{ml: 10, minWidth: "70%", mb: 3}} />
+      <TextField
+        id="Standard"
+        label="Type your favorite playlist url"
+        variant="standard"
+        onChange={e => setUrl(e.target.value)}
+        sx={{ml: 10, minWidth: "70%", mb: 3}}
+      />
       <Button type="submit" className={classes.button} onClick={handleSubmit}>
         {predicting ? <CircularProgress /> : <Typography>Analyze</Typography>}
       </Button>

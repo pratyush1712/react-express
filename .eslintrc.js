@@ -1,6 +1,11 @@
 module.exports = {
   ignorePatterns: ["docker-compose.yml"],
-  extends: ["plugin:@typescript-eslint/recommended", "plugin:prettier/recommended", "plugin:react/recommended", "prettier"],
+  extends: [
+    "plugin:@typescript-eslint/recommended",
+    "plugin:prettier/recommended",
+    "plugin:react/recommended",
+    "prettier"
+  ],
   plugins: ["react", "@typescript-eslint", "prettier"],
   env: {
     browser: true,
