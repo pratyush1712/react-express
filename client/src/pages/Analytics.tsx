@@ -96,15 +96,13 @@ const Analytics = () => {
   useEffect(() => {
     setLoading(true);
     if (tracks.length === 0) return;
-    (async () => {
-      fetch(`${MODEL_ENDPOINT}/model/analyse-tracks`, {
+    fetch(`${MODEL_ENDPOINT}/model/analyse-tracks`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({ tracks: tracks }),
-      })
-        .then(res => res.json())
+      }).then(res => res.json())
         .then(data => {
           setData({
             artists: data.top_artists,
@@ -113,7 +111,6 @@ const Analytics = () => {
           });
           setLoading(false);
         });
-    })();
   }, []);
 
   const buttonStyle = {
