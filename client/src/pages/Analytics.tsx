@@ -97,20 +97,21 @@ const Analytics = () => {
     setLoading(true);
     if (tracks.length === 0) return;
     fetch(`${MODEL_ENDPOINT}/model/analyse-tracks`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ tracks: tracks }),
-      }).then(res => res.json())
-        .then(data => {
-          setData({
-            artists: data.top_artists,
-            years: data.decade_features,
-            features: data.average_features,
-          });
-          setLoading(false);
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ tracks: tracks }),
+    })
+      .then(res => res.json())
+      .then(data => {
+        setData({
+          artists: data.top_artists,
+          years: data.decade_features,
+          features: data.average_features,
         });
+        setLoading(false);
+      });
   }, []);
 
   const buttonStyle = {
