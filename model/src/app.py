@@ -24,9 +24,12 @@ def index():
 @cross_origin()
 def mood_predict():
     playlist_id = request.get_json().get("playlist_id")
-    data = predict([f"spotify:playlist:{playlist_id}"])
-    resp = {"mood": round(data*100,2)}
-    return jsonify(resp)
+    try:
+        data = predict([f"spotify:playlist:{playlist_id}"])
+        resp = {"mood": round(data * 100, 2)}
+        return jsonify(resp)
+    except Exception as e:
+        return jsonify(str(e))
 
 
 if __name__ == "__main__":

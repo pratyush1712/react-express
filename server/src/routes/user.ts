@@ -15,9 +15,9 @@ router.get("/top-tracks", (req, res) => {
     const authOptions = {
       url: "https://api.spotify.com/v1/me/top/tracks?limit=50&offset=0",
       headers: {
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${token}`
       },
-      json: true,
+      json: true
     };
     request.get(authOptions, function (error, response, body) {
       if (!error && response.statusCode === 200) {
@@ -30,9 +30,9 @@ router.get("/top-tracks", (req, res) => {
             const authOptions = {
               url: "https://api.spotify.com/v1/me/top/tracks",
               headers: {
-                Authorization: `Bearer ${access_token}`,
+                Authorization: `Bearer ${access_token}`
               },
-              json: true,
+              json: true
             };
             request.get(authOptions, function (error, response, body) {
               if (!error && response.statusCode === 200) {

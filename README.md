@@ -51,8 +51,7 @@ yarn run install
 yarn run dev
 ```
 
-Once the app is running, you can access it by navigating to `http://localhost:8000` in your web browser.
-The following microservices will be running:
+Once the app is running, you can access it by navigating to `http://localhost:8000` in your web browser. The following microservices will be running:
 
 - Client: `http://localhost:8000`
 - Server: `http://localhost:8001`
@@ -88,16 +87,10 @@ I have implemented DevOps pipelines to automate the build and deployment process
 - Pushing the Docker image to a container registry
 - Deploying the app to staging using Okteto
 
-For every pull request, a preview environment is automatically created in Okteto. This preview environment
-allows you to test your changes in a realistic environment before merging them into the main branch.
-Once you have reviewed your changes and are satisfied with them, you can merge your pull request
-into the main branch and trigger the deployment pipeline.
+For every pull request, a preview environment is automatically created in Okteto. This preview environment allows you to test your changes in a realistic environment before merging them into the main branch. Once you have reviewed your changes and are satisfied with them, you can merge your pull request into the main branch and trigger the deployment pipeline.
 
-To use these pipelines, you will need to set up an Okteto account and configure it to work with
-your GitHub repository. You will also need to set up a Docker account and container registry.
+To use these pipelines, you will need to set up an Okteto account and configure it to work with your GitHub repository. You will also need to set up a Docker account and container registry.
 
-Once you have set up these accounts and configured them to work with your repository, any changes pushed to the `master` branch
-will trigger the pipeline. You can monitor the progress of the pipeline in the Okteto dashboard, and once it is complete,
-you should be able to access the app in your Okteto environment.
+Once you have set up these accounts and configured them to work with your repository, any changes pushed to the `master` branch will trigger the pipeline. You can monitor the progress of the pipeline in the Okteto dashboard, and once it is complete, you should be able to access the app in your Okteto environment.
 
 Thank you for using my Harmonious Sounds web app! If you have any questions or feedback, please feel free to contact me.
