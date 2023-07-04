@@ -14,30 +14,23 @@ router.get("/top-tracks", (req, res) => {
   else {
     const authOptions = {
       url: "https://api.spotify.com/v1/me/top/tracks?limit=50&offset=0",
-      headers: {
-        Authorization: `Bearer ${token}`
-      },
+      headers: { Authorization: `Bearer ${token}` },
       json: true
     };
     request.get(authOptions, function (error, response, body) {
-      if (!error && response.statusCode === 200) {
-        res.send(body);
-      } else {
+      if (!error && response.statusCode === 200) res.send(body);
+      else {
         // fetch new token and try again
         request.post("/auth/refresh_token", function (error, response, body) {
           if (!error && response.statusCode === 200) {
             const access_token = body.access_token;
             const authOptions = {
               url: "https://api.spotify.com/v1/me/top/tracks",
-              headers: {
-                Authorization: `Bearer ${access_token}`
-              },
+              headers: { Authorization: `Bearer ${access_token}` },
               json: true
             };
             request.get(authOptions, function (error, response, body) {
-              if (!error && response.statusCode === 200) {
-                res.send(body);
-              }
+              if (!error && response.statusCode === 200) res.send(body);
             });
           }
         });
