@@ -1,0 +1,41 @@
+name: Continuous Deployment to Staging
+
+on:
+  push:
+    branches: [master]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Set up secret file
+        env:
+          ID: ${{ secrets.REACT_APP_CLIENT_ID }}
+          SECRET: ${{ secrets.REACT_APP_CLIENT_SECRET }}
+        run: |
+          echo $ID
+          echo $SECRET
+          echo $ID >> secrets.txt
+          echo $SECRET >> secrets.txt
+      - name: Run tmate
+        uses: mxschmitt/action-tmate@v2
+      - name: context
+        uses: okteto/context@latest
+        with:
+          token: ${{ secrets.OKTETO_TOKEN }}
+        env:
+          REACT_APP_PUBLIC_URL: ${{ secrets.STAGING_URL }}
+          REACT_APP_CLIENT_ID: ${{ secrets.REACT_APP_CLIENT_ID }}
+      - name: "Activate Namespace"
+        uses: okteto/namespace@latest
+        with:
+          namespace: devops-pratyush1712
+
+      - name: "Trigger the pipeline"
+        uses: okteto/pipeline@latest
+        with:
+          name: react-express
+          timeout: 30m
+          variables: "REACT_APP_PUBLIC_URL=${{ secrets.STAGING_URL }},REACT_APP_CLIENT_ID=${{ secrets.REACT_APP_CLIENT_ID }},REACT_APP_CLIENT_SECRET=${{ secrets.REACT_APP_CLIENT_SECRET }}"

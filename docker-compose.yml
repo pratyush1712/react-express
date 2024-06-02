@@ -1,0 +1,42 @@
+version: "3"
+
+services:
+  nginx:
+    image: nginx:latest
+    build:
+      context: ./nginx
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+    restart: always
+  server:
+    environment:
+      - CLIENT_ID=${REACT_APP_CLIENT_ID}
+      - CLIENT_SECRET=${REACT_APP_CLIENT_SECRET}
+      - REDIRECT_URI=${REACT_APP_PUBLIC_URL}
+    build:
+      context: ./server
+    ports:
+      - "8001:8001"
+    restart: always
+  client:
+    build:
+      context: ./client
+      args:
+        REACT_APP_PUBLIC_URL: ${REACT_APP_PUBLIC_URL}
+        REACT_APP_CLIENT_ID: ${REACT_APP_CLIENT_ID}
+    ports:
+      - "8000:8000"
+    restart: always
+  model:
+    environment:
+      - SPOTIFY_CLIENT_ID=${REACT_APP_CLIENT_ID}
+      - SPOTIFY_CLIENT_SECRET=${REACT_APP_CLIENT_SECRET}
+    build:
+      context: ./model
+    ports:
+      - "8002:8002"
+    deploy:
+      replicas: 3
+    restart: always

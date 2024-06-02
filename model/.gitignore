@@ -1,0 +1,13 @@
+env/*
+.vscode/
+src/*.pyc
+src/*.log
+src/__pycache__
+src/config*
+data/
+config.py
+models/
+src/static/uploads/
+venv
+__pycache__
+.cache
